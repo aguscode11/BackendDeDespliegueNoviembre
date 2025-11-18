@@ -5,8 +5,6 @@ import authMiddleware from '../middlewares/authMiddleware.js'
 import workspaceMiddleware from '../middlewares/workspaceMiddleware.js'
 import ChannelController from '../controllers/channel.controller.js'
 import channelMiddleware from '../middlewares/channelMiddleware.js'
-import MessagesController from '../controllers/messages.controller.js'
-
 const workspaceRouter = express.Router()
 
 
@@ -65,7 +63,7 @@ workspaceRouter.post(
 //Crear los controladores para crear mensajes y obtener mensajes
 //Siempre que se cree o obtenga la lista el servidor debera responder con la lista de mensajes
 
-//Crear mensajes
+/* //Crear mensajes
 workspaceRouter.post(
     '/:workspace_id/channels/:channel_id/messages',
     authMiddleware,
@@ -81,7 +79,7 @@ workspaceRouter.get(
     channelMiddleware,
     MessagesController.getAllByChannelId
 )
-
+ */
 
 workspaceRouter.get(
     '/:workspace_id/test',

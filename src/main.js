@@ -5,13 +5,17 @@ import authRouter from "./routes/auth.router.js";
 import workspaceRouter from "./routes/workspace.router.js";
 import cors from 'cors'
 import memberRouter from "./routes/member.router.js";
-import MessagesChannelRepository from "./repositories/messageChannel.repository.js";
 import ChannelRepository from "./repositories/channel.repository.js";
+import taskRoutes from './routes/taskRoutes.js'; 
 
 
 connectToMongoDB()
 
 const app = express()
+
+
+
+app.use('/api/tasks', taskRoutes);  
 
 //Configuro a mi API como API publica, cualquier dominio puede hacer peticiones
 app.use( cors() )
