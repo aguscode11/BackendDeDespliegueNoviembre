@@ -3,7 +3,7 @@ import * as taskRepository from '../repositories/taskRepository.js';
 export const createTask = async (taskData) => {
   try {
     if (!taskData.title || taskData.title.trim() === '') {
-      throw new Error('Task title is required');
+      throw new Error('Se necesita un titulo para la tarea');
     }
 
     return await taskRepository.createTask(taskData);

@@ -5,7 +5,7 @@ export const createTask = async (taskData) => {
     const task = new Task(taskData);
     return await task.save();
   } catch (error) {
-    throw new Error(`Error creating task: ${error.message}`);
+    throw new Error(`Error creando tarea: ${error.message}`);
   }
 };
 
@@ -14,7 +14,7 @@ export const getTasksByUser = async (userId) => {
     const tasks = await Task.find({ user: userId }).sort({ createdAt: -1 });
     return tasks;
   } catch (error) {
-    throw new Error(`Error getting tasks: ${error.message}`);
+    throw new Error(`Error obteniendo tarea: ${error.message}`);
   }
 };
 
@@ -22,11 +22,11 @@ export const getTaskById = async (taskId) => {
   try {
     const task = await Task.findById(taskId);
     if (!task) {
-      throw new Error('Task not found');
+      throw new Error('Tarea no encontrada');
     }
     return task;
   } catch (error) {
-    throw new Error(`Error getting task: ${error.message}`);
+    throw new Error(`Error obteniendo tarea: ${error.message}`);
   }
 };
 
@@ -39,12 +39,12 @@ export const updateTask = async (taskId, updateData) => {
     );
 
     if (!updatedTask) {
-      throw new Error('Task not found');
+      throw new Error('Tarea no encontrada');
     }
 
     return updatedTask;
   } catch (error) {
-    throw new Error(`Error updating task: ${error.message}`);
+    throw new Error(`Error actualizando tarea: ${error.message}`);
   }
 };
 
@@ -53,11 +53,11 @@ export const deleteTask = async (taskId) => {
     const deletedTask = await Task.findByIdAndDelete(taskId);
 
     if (!deletedTask) {
-      throw new Error('Task not found');
+      throw new Error('Tarea no encontrada');
     }
 
     return deletedTask;
   } catch (error) {
-    throw new Error(`Error deleting task: ${error.message}`);
+    throw new Error(`Error eliminando tarea: ${error.message}`);
   }
 };

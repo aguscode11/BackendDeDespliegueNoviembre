@@ -9,7 +9,7 @@ connectToMongoDB()
 
 const app = express()
 
-// 🔥 CORS SIEMPRE VA PRIMERO
+// CORS SIEMPRE VA PRIMERO
 app.use(cors())
 
 // Middleware para parsear JSON
