@@ -11,26 +11,21 @@ connectToMongoDB()
 const app = express()
 
 
+// CORS SIEMPRE PRIMERO
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://vercel.com/my-team-agus/frontend-de-despliegue-noviembre"
+    ],
+    credentials: true
+}));
 
-app.use('/api/tasks', taskRoutes);  
+app.use(express.json());
 
-//Configuro a mi API como API publica, cualquier dominio puede hacer peticiones
-app.use( cors() )
+// Recién acá tus rutas
+app.use('/api/auth', authRouter);
+app.use('/api/tasks', taskRoutes);
 
-
-app.use(express.json())
-
-//Todas las consultas que empiezen con /api/auth va a ser gestionadas por el authRouter
-app.use('/api/auth', authRouter)
-
-/* mailTransporter.sendMail(
-    {
-        from: ENVIRONMENT.GMAIL_USER, //Desde quien
-        to:  'mati.dev.gimenez@gmail.com', //Hacia adonde enviar
-        subject: 'Mail de prueba', //asunto
-        html: `<h1>Hola desde node js</h1>` //Body del mail
-    }
-) */
 
 
 app.listen(
