@@ -69,18 +69,21 @@ class AuthController {
         try{
             const {email, password} = request.body
 
-            const { auth_token } = await AuthService.login(email, password)
+            const { auth_token, user } = await AuthService.login(email, password)
 
-            response.status(200).json(
-                {
-                    ok: true, 
-                    message: 'Usuario logueado con exito',
-                    status: 200,
-                    body: {
-                        auth_token
+            response.status(200).json({
+                ok: true,
+                message: 'Usuario logueado con exito',
+                status: 200,
+                body: {
+                    auth_token,
+                    user: {
+                        id: user.id,
+                        username: user.name,
+                        email: user.email
                     }
                 }
-            )
+            })
             return 
         }
         catch(error){
