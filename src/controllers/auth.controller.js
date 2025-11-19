@@ -79,7 +79,7 @@ class AuthController {
                     auth_token,
                     user: {
                         id: user.id,
-                        username: user.name,
+                        name: user.name,
                         email: user.email
                     }
                 }
