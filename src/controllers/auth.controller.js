@@ -70,7 +70,7 @@ class AuthController {
         try{
             const {email, password} = request.body
 
-            const { auth_token, user } = await AuthService.login(email, password)
+            const { auth_token, user_found } = await AuthService.login(email, password)
 
             response.status(200).json({
                 ok: true,
@@ -79,9 +79,9 @@ class AuthController {
                 body: {
                     auth_token,
                     user: {
-                        id: user.id,
-                        name: user.name,
-                        email: user.email
+                        id: user_found.id,
+                        name: user_found.name,
+                        email: user_found.email
                     }
                 }
             })

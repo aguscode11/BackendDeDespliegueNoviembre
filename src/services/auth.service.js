@@ -118,7 +118,7 @@ class AuthService {
 
         return {
             auth_token: auth_token,
-            user
+            user_found
         }
     }
 }
