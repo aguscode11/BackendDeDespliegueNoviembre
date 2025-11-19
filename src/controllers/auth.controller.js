@@ -66,6 +66,7 @@ class AuthController {
     }
 
     static async login (request, response){
+        console.log("BODY RECIBIDO EN LOGIN:", request.body)
         try{
             const {email, password} = request.body
 
@@ -87,6 +88,7 @@ class AuthController {
             return 
         }
         catch(error){
+            console.error("ERROR LOGIN:", error)
             if(error.status){
                 return response.status(error.status).json({
                     ok:false,
