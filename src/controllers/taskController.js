@@ -4,10 +4,16 @@ export const createTask = async (req, res, next) => {
   try {
     const { title, description, dueDate, priority } = req.body;
 
+    let normalizedDueDate = null;
+
+    if (dueDate) {
+      normalizedDueDate = new Date(dueDate + "T23:59:59.999");
+    }
+
     const taskData = {
       title,
       description,
-      dueDate,
+      dueDate: normalizedDueDate, 
       priority,
       user: req.user.id
     };

@@ -11,10 +11,15 @@ export const createTask = async (taskData) => {
 
 export const getTasksByUser = async (userId) => {
   try {
-    const tasks = await Task.find({ user: userId }).sort({ createdAt: -1 });
+    const tasks = await Task.find({ user: userId }).sort({ 
+      dueDate: 1,           // 1 — más cercana primero
+      priority: -1,         // -1 — alto primero
+      createdAt: 1          // 1 — primero las más viejas
+    });
+
     return tasks;
   } catch (error) {
-    throw new Error(`Error obteniendo tarea: ${error.message}`);
+    throw new Error(`Error obteniendo tareas: ${error.message}`);
   }
 };
 
