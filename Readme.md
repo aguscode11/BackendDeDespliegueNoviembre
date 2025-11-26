@@ -160,3 +160,27 @@ DELETE /api/tasks/:id
 
 Elimina una tarea.
 
+# ⚙️ Instalación
+1️⃣ Clonar repositorio
+git clone https://github.com/usuario/backend.git
+cd backend
+
+2️⃣ Instalar dependencias
+npm install
+
+3️⃣ Variables de entorno
+
+Crear un archivo .env en la raíz del proyecto:
+
+PORT=8080
+MONGO_URI=tu_conexion_mongo
+JWT_SECRET=tu_secret
+JWT_EXPIRES_IN=7d
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=tu_email
+EMAIL_PASS=tu_password_app
+CLIENT_URL=http://localhost:5173
+
+4️⃣ Ejecutar el proyecto
+npm run dev
