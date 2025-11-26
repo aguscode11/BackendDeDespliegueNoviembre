@@ -2,7 +2,7 @@ import * as taskService from '../services/taskService.js';
 
 export const createTask = async (req, res, next) => {
   try {
-    const { title, description, dueDate, priority } = req.body;
+    const { title, description, dueDate, priority, categoryId } = req.body;
 
     let normalizedDueDate = null;
 
@@ -13,10 +13,13 @@ export const createTask = async (req, res, next) => {
     const taskData = {
       title,
       description,
-      dueDate: normalizedDueDate, 
+      dueDate: normalizedDueDate,
       priority,
+      categoryId: categoryId || null,  
       user: req.user.id
     };
+
+    console.log("🔥 TASK DATA FINAL:", taskData);
 
     const task = await taskService.createTask(taskData);
 
@@ -30,14 +33,25 @@ export const createTask = async (req, res, next) => {
   }
 };
 
-export const editTask = async (req, res) => {
+export const editTask = async (req, res, next) => {
   try {
-    const updated = await taskService.editTask(req.params.id, req.body);
-    res.json(updated);
+    const data = req.body;
+    if (!data.categoryId || data.categoryId === "") {
+      data.categoryId = null;
+    }
+
+    const updated = await taskService.editTask(req.params.id, data);
+
+    res.json({
+      ok: true,
+      data: updated
+    });
+
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    next(error);
   }
 };
+
 
 
 
@@ -57,10 +71,16 @@ export const getUserTasks = async (req, res, next) => {
 
 export const updateTask = async (req, res, next) => {
   try {
-    const updatedTask = await taskService.updateTask(req.params.id, req.body);
+    const data = req.body;
+
+    if (!data.categoryId || data.categoryId === "") {
+      data.categoryId = null;
+    }
+
+    const updatedTask = await taskService.updateTask(req.params.id, data);
 
     res.json({
-      success: true,
+      ok: true,
       data: updatedTask
     });
 
@@ -68,6 +88,7 @@ export const updateTask = async (req, res, next) => {
     next(error);
   }
 };
+
 
 export const deleteTask = async (req, res, next) => {
   try {

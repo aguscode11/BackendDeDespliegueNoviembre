@@ -3,7 +3,9 @@ import connectToMongoDB from "./config/configMongoDB.config.js";
 import express from 'express'
 import authRouter from "./routes/auth.router.js";
 import cors from 'cors'
-import taskRoutes from './routes/taskRoutes.js'; 
+import taskRoutes from './routes/taskRoutes.js';
+import categoryRoutes from "./routes/categoryRoutes.js"; 
+import { errorHandler } from "./middlewares/errorHandler.js";
 
 connectToMongoDB()
 
@@ -18,6 +20,8 @@ app.use(express.json())
 // Rutas
 app.use('/api/auth', authRouter)
 app.use('/api/tasks', taskRoutes)
+app.use("/api/categories", categoryRoutes);
+app.use(errorHandler);
 
 // Start server
 app.listen(

@@ -25,13 +25,16 @@ export const getTasksByUser = async (userId) => {
   }
 };
 
-export const updateTask = async (taskId, updateData) => {
+export const updateTask = async (id, taskData) => {
   try {
-    return await taskRepository.updateTask(taskId, updateData);
+    const updated = await taskRepository.updateTask(id, taskData); // ✔ ahora sí
+    return updated;
   } catch (error) {
-    throw new Error(`Service: ${error.message}`);
+    throw new Error(`Service: Error actualizando tarea: ${error.message}`);
   }
 };
+
+
 
 export const deleteTask = async (taskId) => {
   try {

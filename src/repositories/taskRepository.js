@@ -11,11 +11,13 @@ export const createTask = async (taskData) => {
 
 export const getTasksByUser = async (userId) => {
   try {
-    const tasks = await Task.find({ user: userId }).sort({ 
-      dueDate: 1,           // 1 — más cercana primero
-      priority: -1,         // -1 — alto primero
-      createdAt: 1          // 1 — primero las más viejas
-    });
+    const tasks = await Task.find({ user: userId })
+      .populate("categoryId", "name color")   // <--- AQUI EL POPULATE
+      .sort({
+        dueDate: 1,
+        priority: -1,
+        createdAt: 1
+      });
 
     return tasks;
   } catch (error) {
@@ -23,15 +25,22 @@ export const getTasksByUser = async (userId) => {
   }
 };
 
+
 export const editTask = async (id, data) => {
-  return await Task.findByIdAndUpdate(id, data, { new: true });
+  return await Task.findByIdAndUpdate(id, data, {
+    new: true
+  }).populate("categoryId", "name color");
 };
+
+
 
 
 
 export const getTaskById = async (taskId) => {
   try {
-    const task = await Task.findById(taskId);
+    const task = await Task.findById(taskId)
+      .populate("categoryId", "name color");
+
     if (!task) {
       throw new Error('Tarea no encontrada');
     }
@@ -41,23 +50,27 @@ export const getTaskById = async (taskId) => {
   }
 };
 
+
 export const updateTask = async (taskId, updateData) => {
   try {
+  
+    if (!updateData.categoryId || updateData.categoryId === "") {
+      updateData.categoryId = null;
+    }
+
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       updateData,
       { new: true, runValidators: true }
-    );
-
-    if (!updatedTask) {
-      throw new Error('Tarea no encontrada');
-    }
+    ).populate("categoryId", "name color");
 
     return updatedTask;
+
   } catch (error) {
     throw new Error(`Error actualizando tarea: ${error.message}`);
   }
 };
+
 
 export const deleteTask = async (taskId) => {
   try {
