@@ -12,6 +12,11 @@ export const createTask = async (taskData) => {
   }
 };
 
+export const editTask = async (id, data) => {
+  return await taskRepository.editTask(id, data);
+};
+
+
 export const getTasksByUser = async (userId) => {
   try {
     return await taskRepository.getTasksByUser(userId);

@@ -30,6 +30,17 @@ export const createTask = async (req, res, next) => {
   }
 };
 
+export const editTask = async (req, res) => {
+  try {
+    const updated = await taskService.editTask(req.params.id, req.body);
+    res.json(updated);
+  } catch (error) {
+    res.status(400).json({ message: error.message });
+  }
+};
+
+
+
 export const getUserTasks = async (req, res, next) => {
   try {
     const tasks = await taskService.getTasksByUser(req.user.id);

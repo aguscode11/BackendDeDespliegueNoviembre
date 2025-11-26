@@ -23,6 +23,12 @@ export const getTasksByUser = async (userId) => {
   }
 };
 
+export const editTask = async (id, data) => {
+  return await Task.findByIdAndUpdate(id, data, { new: true });
+};
+
+
+
 export const getTaskById = async (taskId) => {
   try {
     const task = await Task.findById(taskId);
